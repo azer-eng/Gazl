@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="monetag" content="5072c41084cb6f57a905e4f990174574">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MidoSaad | Premium Retro Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon-pink: #ff71ce; --neon-blue: #01cdfe; --dark-bg: #050112; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--dark-bg); color: white; margin: 0; padding: 0; background: radial-gradient(circle at center, #160633 0%, #050112 100%); overflow-x: hidden; }
+        .legacy-header { display: flex; justify-content: center; gap: 20px; padding: 20px 0; background: rgba(255, 255, 255, 0.05); border-bottom: 2px solid var(--neon-pink); }
+        .star-box img { width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--neon-blue); box-shadow: 0 0 10px var(--neon-blue); object-fit: cover; }
+        .logo-container { position: relative; display: flex; justify-content: center; padding: 60px 0 30px; }
+        .mido-logo { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 900; text-transform: uppercase; letter-spacing: 4px; color: #fff; padding: 8px 20px; border: 1.5px solid #fff; border-radius: 8px; background: rgba(0,0,0,0.5); text-shadow: 2px 2px 0px var(--neon-pink), -2px -2px 0px var(--neon-blue); animation: swing 4s infinite ease-in-out; transform-origin: top center; }
+        @keyframes swing { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        .slider-wrapper { display: flex; overflow-x: auto; gap: 25px; padding: 40px 20px; scrollbar-width: none; align-items: center; scroll-behavior: smooth; }
+        .art-card { min-width: 280px; background: rgba(0, 0, 0, 0.7); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); overflow: hidden; transition: 0.5s; opacity: 0.6; transform: scale(0.9); }
+        .art-card:hover { opacity: 1; transform: scale(1) translateY(-10px); border-color: var(--neon-blue); box-shadow: 0 0 40px var(--neon-blue); }
+        .art-card img { width: 100%; height: 320px; object-fit: cover; }
+        .card-body { padding: 20px; text-align: center; }
+        .actions { display: flex; gap: 10px; justify-content: center; }
+        .btn { padding: 10px 16px; border-radius: 20px; text-decoration: none; font-weight: 600; font-size: 0.75rem; transition: 0.3s; cursor: pointer; border: none; }
+        .btn-view { border: 1.5px solid var(--neon-blue); color: var(--neon-blue); background: transparent; }
+        .btn-down { background: var(--neon-pink); color: #fff; }
+        .support-section { text-align: center; padding: 30px 0; }
+        .btn-telegram { background: #229ED9; color: white; padding: 12px 25px; border-radius: 40px; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="legacy-header">
+        <div class="star-box"><img src="halim.png" alt="Halim"></div>
+        <div class="star-box"><img src="najat.png" alt="Najat"></div>
+        <div class="star-box"><img src="farid.png" alt="Farid"></div>
+    </div>
+    <div class="logo-container"><div class="mido-logo">MidoSaad</div></div>
+    <div class="slider-wrapper" id="slider"></div>
+    <div class="support-section"><a href="https://t.me/midosaadoffichall" target="_blank" class="btn btn-telegram">Contact Support (Telegram)</a></div>
+
+    <script>
+        const galleryItems = [
+            { id: 1, title: "The Frost Sovereign", adLink: "https://otieu.com/4/10559432" },
+            { id: 2, title: "Ethereal Mummy", adLink: "https://otieu.com/4/10559431" },
+            { id: 3, title: "Dingo Guardian", adLink: "https://otieu.com/4/10559426" },
+            { id: 4, title: "Ice Whale King", adLink: "https://otieu.com/4/10559425" },
+            { id: 5, title: "Mountain Giant", adLink: "https://otieu.com/4/10559421" },
+            { id: 6, title: "Crystal City", adLink: "https://otieu.com/4/10559423" },
+            { id: 7, title: "Sea Kingdom", adLink: "https://otieu.com/4/10559420" },
+            { id: 8, title: "Mystic Bloom", adLink: "https://otieu.com/4/10559418" },
+            { id: 9, title: "Ancient Sky", adLink: "https://otieu.com/4/10550576" },
+            { id: 10, title: "Digital Pharaoh", adLink: "https://otieu.com/4/10550574" }
+        ];
+        const slider = document.getElementById('slider');
+        function populateSlider() {
+            galleryItems.forEach((item) => {
+                const imgPath = `led${item.id}.png`;
+                slider.innerHTML += `
+                    <div class="art-card">
+                        <img src="${imgPath}" alt="${item.title}">
+                        <div class="card-body">
+                            <h3>${item.title}</h3>
+                            <div class="actions">
+                                <a href="${imgPath}" target="_blank" class="btn btn-view">VIEW</a>
+                                <button onclick="handleDownload(event, '${imgPath}', '${item.adLink}')" class="btn btn-down">DOWNLOAD</button>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+        }
+        populateSlider();
+        function handleDownload(event, imgUrl, adLink) {
+            window.open(adLink, '_blank');
+            const btn = event.target;
+            btn.disabled = true;
+            setTimeout(() => {
+                btn.disabled = false;
+                const a = document.createElement('a');
+                a.href = imgUrl; a.download = imgUrl; a.click();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
